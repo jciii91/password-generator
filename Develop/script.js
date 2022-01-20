@@ -35,21 +35,29 @@ function generatePassword() {
   var passwordString = "";
   var specialString = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
   for (var j=0; j<passwordLength; j++) {
-    switch (randomNumber(1,4)) {
+    var criteriaNum = -999;
+    while (criteriaNum < 0) {
+      criteriaNum = randomNumber(0,3);
+      console.log(criteriaNum);
+      if (!characterTypes[criteriaNum]) {
+        criteriaNum = -999;
+      }
+    }
+    switch (criteriaNum) {
       //lowercase
-      case 1:
+      case 0:
         passwordString += String.fromCharCode(randomNumber(97,122));
         break;
       //uppercase
-      case 2:
+      case 1:
         passwordString += String.fromCharCode(randomNumber(65,90));
         break;
       //numeric
-      case 3:
+      case 2:
         passwordString += String.fromCharCode(randomNumber(48,57));
         break;
       //special
-      case 4:
+      case 3:
         passwordString += specialString[randomNumber(0,specialString.length - 1)];
         console.log("here");
         break;
