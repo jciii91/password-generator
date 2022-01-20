@@ -32,7 +32,37 @@ function generatePassword() {
     }
   }
 
-  
+  var passwordString = "";
+  var specialString = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+  for (var j=0; j<passwordLength; j++) {
+    switch (randomNumber(1,4)) {
+      //lowercase
+      case 1:
+        passwordString += String.fromCharCode(randomNumber(97,122));
+        break;
+      //uppercase
+      case 2:
+        passwordString += String.fromCharCode(randomNumber(65,90));
+        break;
+      //numeric
+      case 3:
+        passwordString += String.fromCharCode(randomNumber(48,57));
+        break;
+      //special
+      case 4:
+        passwordString += specialString[randomNumber(0,specialString.length - 1)];
+        console.log("here");
+        break;
+      default:
+        console.log("Something went wrong.");
+    }
+  }
+
+  return passwordString;
+}
+
+function randomNumber(min,max) {
+  return Math.floor(Math.random() * ((max + 1) - min) + min);
 }
 
 // Get references to the #generate element
