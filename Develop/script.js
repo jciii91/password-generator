@@ -13,6 +13,25 @@ function generatePassword() {
     lengthFlag = false;
   }
 
+  //Prompt user for character types to be included
+  //characterTypes: an array to store which characters the user wishes to include in their password. by default, all are enabled
+  var characterTypes = [true,true,true,true];
+  var characterChoices = ["lowercase","uppercase","numeric","special characters"];
+  var characterFlag = true;
+  // Input validation loop
+  while (characterFlag) {
+    alert("The following prompts will ask which types of characters you want in your password. Click OK to include, click Cancel to exclude. At least 1 type of character must be selected.");
+    for (var i=0; i<characterChoices.length; i++) {
+      characterTypes[i] = confirm("Would you like " + characterChoices[i] + " characters included in your password?");
+      if (characterTypes[i] == true) {
+        characterFlag = false;
+      }
+    }
+    if (characterFlag) {
+      alert("Invalid entry. No character types were selected.");
+    }
+  }
+
   
 }
 
