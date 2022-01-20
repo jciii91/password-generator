@@ -15,10 +15,12 @@ function generatePassword() {
   return makeString();
 }
 
+//random number generator
 function randomNumber(min,max) {
   return Math.floor(Math.random() * ((max + 1) - min) + min);
 }
 
+//returns length of password
 function getLength() {
   //Prompt user for desired length of password, specifying the range of values accetpable
   passwordLength = prompt("Please enter a password length. Length must be at least 8 but no more than 128.","8");
@@ -29,12 +31,15 @@ function getLength() {
   }
 }
 
+//sets which characters can be used
 function whichCharacters() {
   //Prompt user for character types to be included
   alert("The following prompts will ask which types of characters you want in your password. Click OK to include, click Cancel to exclude. At least 1 type of character must be selected.");
   for (var i=0; i<characterChoices.length; i++) {
     characterTypes[i] = confirm("Would you like " + characterChoices[i] + " characters included in your password?");
   }
+
+  //Input validation
   var checkTypes = true;
   for (var i=0; i<characterTypes.length; i++) {
     if (characterTypes[i] == true) {
@@ -46,10 +51,15 @@ function whichCharacters() {
   }
 }
 
+//creates the password string
 function makeString() {
   var passwordString = "";
+
+  //loops to create the password, one character per loop
   for (var j=0; j<passwordLength; j++) {
     var criteriaNum = -999;
+
+    //randomly selects a character set from the sets chosen by the user
     while (criteriaNum < 0) {
       criteriaNum = randomNumber(0,3);
       console.log(criteriaNum);
@@ -57,6 +67,8 @@ function makeString() {
         criteriaNum = -999;
       }
     }
+
+    //randomly picks a character from the chosen set and appends it to the password string
     switch (criteriaNum) {
       //lowercase
       case 0:
@@ -79,6 +91,8 @@ function makeString() {
         console.log("Something went wrong.");
     }
   }
+
+  //return final string
   return passwordString;
 }
 
