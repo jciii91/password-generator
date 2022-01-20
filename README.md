@@ -1,2 +1,1 @@
-# password-generator
-Webapp password generator.
+# Password Generator Starter Code
