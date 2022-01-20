@@ -1,39 +1,53 @@
 // Assignment code here
+var passwordLength = "";
+var characterTypes = [true,true,true,true];
+var characterChoices = ["lowercase","uppercase","numeric","special characters"];
+var specialString = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+
 function generatePassword() {
+  //call function to get length of password
+  getLength();
+
+  //call function to select character types
+  whichCharacters();
+  
+  //return the string to print
+  return makeString();
+}
+
+function randomNumber(min,max) {
+  return Math.floor(Math.random() * ((max + 1) - min) + min);
+}
+
+function getLength() {
   //Prompt user for desired length of password, specifying the range of values accetpable
-  var passwordLength = "";
-  var lengthFlag = true;
-  //Input validation loop
-  while (passwordLength == "" || lengthFlag) {
-    passwordLength = prompt("Please enter a password length. Length must be at least 8 but no more than 128.","8");
-    if (!(parseInt(passwordLength) >= 8 && parseInt(passwordLength) <= 128)) {
-      alert("Invalid entry. Please reread the instructions and try again.");
-      continue;
-    }
-    lengthFlag = false;
+  passwordLength = prompt("Please enter a password length. Length must be at least 8 but no more than 128.","8");
+  if (!(parseInt(passwordLength) >= 8 && parseInt(passwordLength) <= 128)) {
+    alert("Invalid entry. Please reread the instructions and try again.");
+    //calls itself again if an invalid length is entered
+    getLength();
   }
+}
 
+function whichCharacters() {
   //Prompt user for character types to be included
-  //characterTypes: an array to store which characters the user wishes to include in their password. by default, all are enabled
-  var characterTypes = [true,true,true,true];
-  var characterChoices = ["lowercase","uppercase","numeric","special characters"];
-  var characterFlag = true;
-  // Input validation loop
-  while (characterFlag) {
-    alert("The following prompts will ask which types of characters you want in your password. Click OK to include, click Cancel to exclude. At least 1 type of character must be selected.");
-    for (var i=0; i<characterChoices.length; i++) {
-      characterTypes[i] = confirm("Would you like " + characterChoices[i] + " characters included in your password?");
-      if (characterTypes[i] == true) {
-        characterFlag = false;
-      }
-    }
-    if (characterFlag) {
-      alert("Invalid entry. No character types were selected.");
+  alert("The following prompts will ask which types of characters you want in your password. Click OK to include, click Cancel to exclude. At least 1 type of character must be selected.");
+  for (var i=0; i<characterChoices.length; i++) {
+    characterTypes[i] = confirm("Would you like " + characterChoices[i] + " characters included in your password?");
+  }
+  var checkTypes = true;
+  for (var i=0; i<characterTypes.length; i++) {
+    if (characterTypes[i] == true) {
+      checkTypes = false;
     }
   }
+  if (checkTypes) {
+    whichCharacters();
+  }
+}
 
+function makeString() {
   var passwordString = "";
-  var specialString = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
   for (var j=0; j<passwordLength; j++) {
     var criteriaNum = -999;
     while (criteriaNum < 0) {
@@ -65,12 +79,7 @@ function generatePassword() {
         console.log("Something went wrong.");
     }
   }
-
   return passwordString;
-}
-
-function randomNumber(min,max) {
-  return Math.floor(Math.random() * ((max + 1) - min) + min);
 }
 
 // Get references to the #generate element
